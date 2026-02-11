@@ -3,862 +3,602 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mouslim Cherkaoui — Senior UX Researcher</title>
+<title>Mouslim Cherkaoui — UX Research Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,300;1,8..60,400;1,8..60,500&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
   :root {
-    --ink: #1a1714;
-    --paper: #f6f3ee;
-    --warm: #c9a96e;
-    --warm-muted: #d4be8e;
-    --warm-bg: #efe9dd;
-    --mid: #8a8279;
-    --light: #d6d0c6;
-    --accent: #3d5a47;
-    --accent-light: #4a6d54;
-    --red: #a0453a;
+    --paper: #faf8f5;
+    --ink: #2c2825;
+    --body: #4a4543;
+    --muted: #8a8280;
+    --light: #d6d1ca;
+    --border: #e8e4de;
+    --warm: #b8885c;
+    --warm-light: #f5efe8;
+    --sage: #5b7a5e;
+    --sage-light: #eef3ee;
+    --clay: #a65d4e;
+    --clay-light: #f8efed;
+    --chart-1: #5b7a5e;
+    --chart-2: #b8885c;
+    --chart-3: #a65d4e;
+    --chart-bg: #fdfcfa;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    font-size: 17px;
-    scroll-behavior: smooth;
-  }
-
+  html { font-size: 17px; scroll-behavior: smooth; }
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Karla', sans-serif;
     background: var(--paper);
-    color: var(--ink);
-    line-height: 1.7;
-    font-weight: 300;
+    color: var(--body);
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
   }
+  ::selection { background: var(--warm); color: white; }
 
-  ::selection {
-    background: var(--warm);
-    color: var(--paper);
-  }
-
-  /* ——— NAV ——— */
+  /* NAV */
   nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(246,243,238,0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(26,23,20,0.06);
-    transition: all 0.4s ease;
-  }
-  nav.scrolled {
-    padding: 0.8rem 3rem;
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,248,245,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
   }
   .nav-name {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    text-decoration: none;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.1rem; font-weight: 500;
+    color: var(--ink); text-decoration: none;
   }
-  .nav-links {
-    display: flex;
-    gap: 2.2rem;
-    list-style: none;
-  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
-    text-decoration: none;
-    color: var(--mid);
-    font-size: 0.82rem;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    text-decoration: none; color: var(--muted);
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
     transition: color 0.3s;
   }
   .nav-links a:hover { color: var(--ink); }
 
-  /* ——— HERO ——— */
+  /* HERO */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 3rem 6rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .hero-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--warm);
-    font-weight: 500;
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
+    min-height: 82vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 2.5rem 5rem;
+    max-width: 800px; margin: 0 auto;
   }
   .hero h1 {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(3rem, 6vw, 5.5rem);
-    font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: -0.025em;
-    max-width: 900px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2.1rem, 4.2vw, 3rem);
+    font-weight: 400; line-height: 1.28;
+    color: var(--ink); letter-spacing: -0.015em;
+    margin-bottom: 1.8rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
   }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--accent);
+  .hero-intro {
+    font-size: 1.05rem; line-height: 1.85;
+    color: var(--body); max-width: 620px;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
   }
-  .hero-sub {
-    margin-top: 2.5rem;
-    font-size: 1.15rem;
-    color: var(--mid);
-    max-width: 600px;
-    line-height: 1.8;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
+  .hero-intro strong { color: var(--ink); font-weight: 600; }
+  .hero-credentials {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-top: 2rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards;
   }
-  .hero-meta {
-    display: flex;
-    gap: 3rem;
-    margin-top: 3.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.8s forwards;
-  }
-  .hero-meta-item {
-    display: flex;
-    flex-direction: column;
-  }
-  .hero-meta-item span:first-child {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 0.3rem;
-  }
-  .hero-meta-item span:last-child {
-    font-size: 0.95rem;
-    font-weight: 400;
-    color: var(--ink);
+  .credential-pill {
+    font-size: 0.73rem; font-weight: 500;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
   }
 
-  .scroll-indicator {
-    position: absolute;
-    bottom: 3rem;
-    left: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 1s forwards;
+  /* CONTAINERS */
+  .container { max-width: 800px; margin: 0 auto; padding: 0 2.5rem; }
+  .wide-container { max-width: 960px; margin: 0 auto; padding: 0 2.5rem; }
+
+  .section-break {
+    padding: 5rem 0 1rem;
+    text-align: center;
   }
-  .scroll-line {
-    width: 40px;
-    height: 1px;
-    background: var(--warm);
-    animation: scrollPulse 2s ease infinite;
-  }
-  .scroll-indicator span {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid);
+  .section-break-label {
+    font-size: 0.72rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--warm); font-weight: 600;
   }
 
-  /* ——— SECTION SHARED ——— */
-  section {
-    padding: 7rem 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
+  /* STORY BEATS */
+  .story { padding: 2rem 0 4rem; }
+  .story-beat {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
   }
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--warm);
-    font-weight: 500;
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-  }
+  .story-beat:first-child { border-top: none; padding-top: 0; }
 
-  /* ——— DIVIDER ——— */
-  .divider {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 3rem;
+  .beat-label {
+    font-size: 0.68rem; letter-spacing: 0.14em;
+    text-transform: uppercase; font-weight: 600;
+    margin-bottom: 1rem; display: flex;
+    align-items: center; gap: 0.8rem;
   }
-  .divider hr {
-    border: none;
-    height: 1px;
-    background: var(--light);
+  .beat-label .num {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; color: white;
   }
+  .beat-sage .num { background: var(--sage); }
+  .beat-sage .beat-label { color: var(--sage); }
+  .beat-clay .num { background: var(--clay); }
+  .beat-clay .beat-label { color: var(--clay); }
 
-  /* ——— ABOUT ——— */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
+  .beat-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.6rem; font-weight: 400;
+    color: var(--ink); line-height: 1.3;
+    margin-bottom: 1.2rem; letter-spacing: -0.01em;
   }
-  .about-text p {
-    margin-bottom: 1.5rem;
-    color: var(--ink);
-    font-size: 1.02rem;
+  .beat-text {
+    font-size: 1rem; line-height: 1.85;
+    color: var(--body); max-width: 640px;
   }
-  .about-text p:first-child::first-letter {
-    font-family: 'Instrument Serif', serif;
-    font-size: 3.5rem;
-    float: left;
-    line-height: 0.85;
-    margin-right: 0.15rem;
-    margin-top: 0.1rem;
-    color: var(--accent);
-  }
-  .about-sidebar {
-    position: relative;
-  }
-  .credential-card {
+  .beat-text p { margin-bottom: 1rem; }
+  .beat-text p:last-child { margin-bottom: 0; }
+
+  /* FIGURES */
+  .figure-container {
+    margin: 2.5rem 0;
     background: white;
-    padding: 2.2rem;
-    border-radius: 2px;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(26,23,20,0.06);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
   }
-  .credential-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(26,23,20,0.06);
+  .figure-header { padding: 1.2rem 1.5rem 0.2rem; }
+  .figure-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem; font-weight: 500;
+    color: var(--ink); line-height: 1.4;
   }
-  .credential-card h4 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.15rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
+  .figure-subtitle {
+    font-size: 0.82rem; color: var(--muted);
+    margin-top: 0.25rem; line-height: 1.5;
   }
-  .credential-card p {
-    font-size: 0.88rem;
-    color: var(--mid);
-    line-height: 1.6;
+  .figure-body { padding: 1rem 1.5rem 1.5rem; }
+  .figure-body svg { width: 100%; height: auto; display: block; }
+  .figure-footer {
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid var(--border);
+    background: #fdfcfa;
   }
-  .credential-tag {
-    display: inline-block;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--warm);
-    font-weight: 500;
-    margin-bottom: 0.8rem;
+  .figure-note {
+    font-size: 0.72rem; color: var(--muted);
+    font-style: italic; line-height: 1.5;
   }
 
-  /* ——— PHILOSOPHY ——— */
-  .philosophy-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    margin-top: 3rem;
-  }
-  .philosophy-item {
-    padding: 2rem 0;
-    border-top: 2px solid var(--ink);
-  }
-  .philosophy-item h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.35rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
-  }
-  .philosophy-item p {
-    font-size: 0.92rem;
-    color: var(--mid);
-    line-height: 1.7;
-  }
-
-  /* ——— CASE STUDIES ——— */
-  .case-study {
-    margin-bottom: 6rem;
-  }
-  .case-study:last-child { margin-bottom: 0; }
-
-  .case-header {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 4rem;
-    align-items: start;
-    margin-bottom: 3.5rem;
-  }
-  .case-number {
-    font-family: 'Instrument Serif', serif;
-    font-size: 5rem;
-    line-height: 1;
-    color: var(--light);
-    margin-bottom: 1rem;
-    letter-spacing: -0.04em;
-  }
-  .case-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    margin-bottom: 1.2rem;
-  }
-  .case-subtitle {
-    font-size: 1.05rem;
-    color: var(--mid);
-    line-height: 1.7;
-  }
-  .case-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    padding-top: 0.5rem;
-  }
-  .case-meta-row {
-    display: flex;
-    flex-direction: column;
-  }
-  .case-meta-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 0.2rem;
-  }
-  .case-meta-value {
-    font-size: 0.92rem;
-    font-weight: 400;
-  }
-
-  .case-body {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 3rem;
-  }
-  .case-body-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--warm);
-    font-weight: 500;
-    padding-top: 0.35rem;
-  }
-  .case-body-content {
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--light);
-    margin-bottom: 2.5rem;
-  }
-  .case-body-content:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-  .case-body-content p {
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: 1rem;
-    color: var(--ink);
-  }
-  .case-body-content p:last-child { margin-bottom: 0; }
-
-  /* Impact metrics */
-  .impact-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-  .impact-card {
-    background: var(--warm-bg);
+  /* OUTCOME CARD */
+  .outcome-card {
+    background: var(--warm-light);
+    border-radius: 6px;
     padding: 1.8rem;
-    border-radius: 2px;
-  }
-  .impact-card .number {
-    font-family: 'Instrument Serif', serif;
-    font-size: 2rem;
-    color: var(--accent);
-    line-height: 1.1;
-    margin-bottom: 0.5rem;
-  }
-  .impact-card .label {
-    font-size: 0.85rem;
-    color: var(--mid);
-    line-height: 1.5;
-  }
-
-  /* Insight callout */
-  .insight-callout {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 2.5rem;
-    border-radius: 2px;
     margin: 1.5rem 0;
-    position: relative;
   }
-  .insight-callout::before {
-    content: '"';
-    font-family: 'Instrument Serif', serif;
-    font-size: 5rem;
-    line-height: 0.8;
-    color: var(--warm);
-    position: absolute;
-    top: 1.2rem;
-    left: 1.8rem;
-    opacity: 0.4;
+  .outcome-card h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem; font-weight: 500;
+    color: var(--ink); margin-bottom: 0.7rem;
   }
-  .insight-callout p {
-    color: var(--paper) !important;
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.3rem;
-    line-height: 1.5;
-    font-style: italic;
-    padding-left: 2rem;
+  .outcome-card p {
+    font-size: 0.92rem; color: var(--body); line-height: 1.7;
   }
 
-  /* Method tags */
-  .method-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1rem;
+  /* QUOTE */
+  .insight-quote {
+    padding: 1.8rem 0 1.8rem 1.8rem;
+    border-left: 3px solid var(--warm);
+    margin: 2rem 0;
   }
-  .method-tag {
+  .insight-quote p {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.15rem; font-style: italic;
+    color: var(--ink); line-height: 1.55;
+  }
+
+  /* METHOD PILLS */
+  .method-pills {
+    display: flex; flex-wrap: wrap; gap: 0.45rem;
+    margin-top: 1.2rem;
+  }
+  .method-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    padding: 0.4rem 0.9rem;
-    background: white;
-    border: 1px solid var(--light);
-    border-radius: 2px;
-    color: var(--mid);
-    letter-spacing: 0.02em;
+    font-size: 0.68rem; padding: 0.3rem 0.7rem;
+    background: white; border: 1px solid var(--border);
+    border-radius: 3px; color: var(--muted);
   }
 
-  /* ——— METHODS ——— */
-  .methods-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    margin-top: 3rem;
+  /* PHILOSOPHY */
+  .philosophy-section { padding: 4rem 0; }
+  .philosophy-text {
+    max-width: 640px;
+    font-size: 1rem; line-height: 1.85;
   }
-  .methods-column h3 {
-    font-family: 'Instrument Serif', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.8rem;
+  .philosophy-text p { margin-bottom: 1.2rem; }
+
+  /* ORIGIN */
+  .origin-section { padding: 4rem 0; }
+  .origin-text {
+    max-width: 640px;
+    font-size: 1rem; line-height: 1.85;
+  }
+  .origin-text p { margin-bottom: 1.2rem; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem; margin-top: 2.5rem;
+  }
+  .skill-col h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem; font-weight: 500;
+    color: var(--ink); margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
     border-bottom: 2px solid var(--ink);
   }
-  .methods-column ul {
-    list-style: none;
+  .skill-col ul { list-style: none; }
+  .skill-col li {
+    font-size: 0.85rem; padding: 0.4rem 0;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(0,0,0,0.03);
   }
-  .methods-column li {
-    font-size: 0.9rem;
-    padding: 0.5rem 0;
-    color: var(--mid);
-    border-bottom: 1px solid rgba(26,23,20,0.05);
-    transition: color 0.2s;
-  }
-  .methods-column li:hover { color: var(--ink); }
 
-  /* ——— CONTACT ——— */
-  .contact-section {
-    text-align: center;
-    padding: 8rem 3rem;
-  }
-  .contact-section .section-title {
-    max-width: 600px;
-    margin: 0 auto 1.5rem;
-  }
+  /* CONTACT */
+  .contact-section { padding: 6rem 0; text-align: center; }
+  .contact-section .beat-title { max-width: 500px; margin: 0 auto 1rem; }
   .contact-section p {
-    color: var(--mid);
-    margin-bottom: 3rem;
-    font-size: 1.05rem;
+    color: var(--muted); margin-bottom: 2.5rem; font-size: 0.95rem;
   }
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-  }
+  .contact-row { display: flex; justify-content: center; gap: 2rem; }
   .contact-link {
-    text-decoration: none;
-    color: var(--ink);
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 400;
-    padding-bottom: 0.3rem;
+    text-decoration: none; color: var(--ink);
+    font-size: 0.8rem; letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 500;
+    padding-bottom: 0.25rem;
     border-bottom: 1px solid var(--warm);
     transition: all 0.3s;
   }
-  .contact-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
+  .contact-link:hover { color: var(--sage); border-color: var(--sage); }
 
-  /* ——— FOOTER ——— */
   footer {
-    padding: 2rem 3rem;
-    text-align: center;
-    font-size: 0.78rem;
-    color: var(--mid);
-    border-top: 1px solid var(--light);
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 1.5rem 2.5rem; text-align: center;
+    font-size: 0.75rem; color: var(--light);
+    border-top: 1px solid var(--border);
   }
 
-  /* ——— ANIMATIONS ——— */
+  /* ANIMATIONS */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(25px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  @keyframes scrollPulse {
-    0%, 100% { width: 40px; opacity: 0.5; }
-    50% { width: 55px; opacity: 1; }
-  }
-
   .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ——— RESPONSIVE ——— */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    section, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .divider { padding: 0 1.5rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .philosophy-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .case-header { grid-template-columns: 1fr; gap: 2rem; }
-    .case-body { grid-template-columns: 1fr; gap: 0.5rem; }
-    .case-body-label { padding-top: 0; margin-bottom: 0.3rem; }
-    .impact-grid { grid-template-columns: 1fr; }
-    .methods-columns { grid-template-columns: 1fr; gap: 2rem; }
-    .hero-meta { flex-direction: column; gap: 1.5rem; }
-    .contact-links { flex-direction: column; align-items: center; }
-  }
+  /* D3 STYLES */
+  .axis text { font-family: 'Karla', sans-serif; font-size: 12px; fill: #8a8280; }
+  .axis-label { font-family: 'Karla', sans-serif; font-size: 11px; fill: #8a8280; font-weight: 500; }
+  .axis line, .axis path { stroke: #e0dcd6; }
+  .grid line { stroke: #f0ece6; stroke-dasharray: 2,3; }
+  .grid path { stroke: none; }
+  .legend-text { font-family: 'Karla', sans-serif; font-size: 11px; fill: #6a6563; }
+  .bar-label { font-family: 'Karla', sans-serif; font-size: 11px; fill: #6a6563; font-weight: 500; }
+  .annotation-text { font-family: 'Source Serif 4', serif; font-size: 12px; fill: #8a8280; font-style: italic; }
 
-  @media (max-width: 600px) {
-    html { font-size: 15px; }
-    .nav-links a { font-size: 0.72rem; }
-    .hero h1 { font-size: 2.5rem; }
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0.8rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero, .container, .wide-container { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-row { flex-direction: column; align-items: center; }
+    .figure-header, .figure-body, .figure-footer { padding-left: 1rem; padding-right: 1rem; }
+    .hero h1 { font-size: 2rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
+<nav>
   <a href="#" class="nav-name">Mouslim Cherkaoui</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>
+    <li><a href="#philosophy">How I Think</a></li>
+    <li><a href="#origin">Background</a></li>
     <li><a href="#methods">Methods</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ════════ HERO ════════ -->
+
 <div class="hero">
-  <div class="hero-label">Senior Quantitative UX Researcher</div>
-  <h1>I study how people <em>actually</em> behave — then change how products are built.</h1>
-  <p class="hero-sub">
-    Behavioral scientist and computational neuroscientist who bridges human insight with ML system design.
-    I specialize in proving what's really driving behavior at scale — especially when the obvious answer is wrong.
+  <h1>I'm a UX researcher who studies what's actually driving behavior in products — and helps teams build around what they find.</h1>
+  <p class="hero-intro">
+    I've spent the last decade studying how people make decisions — first in the brain scanner during my PhD, now in products used by millions.
+    I do both foundational and evaluative research, and I care a lot about matching the rigor of a study to the stakes of the decision it's informing and the speed it requires.
+    The work I'm most proud of tends to be when I collaborate with the team to define the question we previously didn't think to ask.
   </p>
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      <span>Education</span>
-      <span>PhD, UCLA — Computational Neuroscience</span>
-    </div>
-    <div class="hero-meta-item">
-      <span>Previous</span>
-      <span>TikTok Shop · Perx Health · Kaiser Permanente</span>
-    </div>
-    <div class="hero-meta-item">
-      <span>Focus</span>
-      <span>Causal Inference · Behavioral Modeling · ML Research</span>
-    </div>
-  </div>
-  <div class="scroll-indicator">
-    <div class="scroll-line"></div>
-    <span>Scroll to explore</span>
+  <div class="hero-credentials">
+    <span class="credential-pill">PhD, UCLA — Psychology & Computational Neuroscience</span>
+    <span class="credential-pill">MSc, UCL — Cognitive Neuroscience (Distinction)</span>
+    <span class="credential-pill">Previously: TikTok Shop · Perx Health · Kaiser Permanente</span>
   </div>
 </div>
 
-<div class="divider"><hr></div>
+<!-- ════════ CASE STUDY 1 ════════ -->
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <div class="section-label">About</div>
-      <p>Most UX researchers tell you what users said. I tell you what's actually causing their behavior — and whether your product hypothesis is right or wrong before you ship. My work lives at the intersection of behavioral science, causal inference, and machine learning, which means I don't just surface insights — I translate them into specifications that engineering teams can build against.</p>
-      <p>During my PhD at UCLA, I decoded brain activity in real-time and used reinforcement learning to influence human preferences unconsciously. I co-developed TRACE, a machine learning method for extracting behaviorally-relevant neural patterns from fMRI data. That foundation in computational modeling is what allows me to think like both a researcher and an ML engineer — a rare combination in UX research.</p>
-      <p>At TikTok Shop, I conducted research across a 10–20 million user marketplace that directly redirected multi-million dollar product strategies. My two largest projects both overturned prevailing assumptions: one disproved the team's retention hypothesis and redirected an entire quarterly roadmap; the other fundamentally changed how the recommendation algorithm handled content diversity.</p>
+<div class="section-break" id="work">
+  <div class="section-break-label">Case Study 01</div>
+</div>
+
+<div class="container">
+<div class="story">
+
+  <div class="story-beat beat-sage reveal">
+    <div class="beat-label"><span class="num">1</span> THE STUCK TEAM</div>
+    <div class="beat-title">Users said TikTok Shop's feed felt repetitive. A previous fix had broken revenue. The team wasn't sure didn't what to try next.</div>
+    <div class="beat-text">
+      <p>The first attempt at solving this was intuitive: show less repeated content. But when the ML team reduced content repetition across the board, Gross Merchandise Value dropped. Leadership got cautious, and the team needed solutions — they couldn't ignore the complaints. They needed solutions, fast.</p>
+      <p>I was brought in to figure out what was actually going on. Everyone was asking "how do we reduce repetition?" I had a feeling that wasn't the right question. We needed to understand the user problem first.</p>
     </div>
-    <div class="about-sidebar">
-      <div class="credential-card">
-        <div class="credential-tag">Academic</div>
-        <h4>PhD, Psychology / Computational Neuroscience</h4>
-        <p>University of California, Los Angeles. Dissertation on unconscious associative learning using decoded neuroreinforcement and multi-voxel pattern analysis.</p>
-      </div>
-      <div class="credential-card">
-        <div class="credential-tag">Academic</div>
-        <h4>MSc, Cognitive Neuroscience — Distinction</h4>
-        <p>University College London. Research in learning, memory, and computational models of behavior.</p>
-      </div>
-      <div class="credential-card">
-        <div class="credential-tag">Publication</div>
-        <h4>TRACE Algorithm</h4>
-        <p>Co-developed Task-Relevant Autoencoder via Classifier Enhancement — an ML method showing up to 12% increased classification accuracy for neural pattern extraction.</p>
-      </div>
-      <div class="credential-card">
-        <div class="credential-tag">Differentiator</div>
-        <h4>Neuroscience → ML Translation</h4>
-        <p>I translate qualitative human insights into quantitative ML model specifications — bridging what users experience with how algorithms should be optimized.</p>
+  </div>
+
+  <div class="story-beat beat-sage reveal">
+    <div class="beat-label"><span class="num">2</span> A DIFFERENT QUESTION</div>
+    <div class="beat-title">What if "repetitive" doesn't mean what we think it means?</div>
+    <div class="beat-text">
+      <p>Here's the thing about user complaints — they're real, but they're not always literal. When someone says "I keep seeing the same stuff," they might mean the content is actually identical. Or they might mean something subtler: the content feels irrelevant, and irrelevant content is more noticeable when it recurs.</p>
+      <p>So based on initial conversations with users,I reframed the question: <em>does the experience of repetitiveness depend on how relevant the content is?</em> If yes, the solution isn't less repetition — it's better relevance.</p>
+    </div>
+  </div>
+
+  <div class="story-beat beat-sage reveal">
+    <div class="beat-label"><span class="num">3</span> THE STUDY</div>
+    <div class="beat-title">Each user rated three carefully chosen videos — and the design is what made the findings credible.</div>
+    <div class="beat-text">
+      <p>I surveyed 5,000 TikTok Shop users, stratified by usage frequency. The key design choice: each participant rated three videos that varied systematically in how relevant they were — one from a category they'd actively searched for, one from a category they'd engaged with but never searched, and one they'd never interacted with at all.</p>
+      <p>This isolated the effect of relevance on perceived repetitiveness while controlling for actual exposure frequency. It's a straightforward design, but the right one for this question — and the stakes warranted a large sample and a proper regression model rather than something lighter.</p>
+      <div class="method-pills">
+        <span class="method-pill">N = 5,000 survey</span>
+        <span class="method-pill">mixed-effects regression</span>
+        <span class="method-pill">cognitive walkthroughs</span>
+        <span class="method-pill">behavioral log analysis</span>
+        <span class="method-pill">A/B validation</span>
       </div>
     </div>
   </div>
-</section>
 
-<div class="divider"><hr></div>
+  <div class="story-beat beat-sage reveal">
+    <div class="beat-label"><span class="num">4</span> WHAT THE DATA SHOWED</div>
+    <div class="beat-title">Relevance was the moderator — not frequency.</div>
+    <div class="beat-text">
+      <p>Content that matched a user's active search intent was rated as significantly less repetitive — even when it had been shown to them more often. Content from categories they'd never engaged with felt the most repetitive, even at lower exposure.</p>
+    </div>
 
-<!-- PHILOSOPHY -->
-<section>
+    <div class="figure-container">
+      <div class="figure-header">
+        <div class="figure-title">Users tolerate repeated content when it matches their intent</div>
+        <div class="figure-subtitle">Mean repetitiveness rating (1–7 scale) by content relevance level</div>
+      </div>
+      <div class="figure-body">
+        <div id="chart-repetition"></div>
+      </div>
+      <div class="figure-footer">
+        <div class="figure-note">Illustrative data based on directional findings. Not actual values. Error bars represent approximate standard error.</div>
+      </div>
+    </div>
+
+    <div class="insight-quote">
+      <p>Repetition isn't really about seeing the same content. It's about seeing products that feel irrelevant — and irrelevant products becomes more annoying the more it shows up.</p>
+    </div>
+  </div>
+
+  <div class="story-beat beat-sage reveal">
+    <div class="beat-label"><span class="num">5</span> MAKING IT BUILDABLE</div>
+    <div class="beat-title">The ML team needed to know which signals to weight — not just that "relevance matters."</div>
+    <div class="beat-text">
+      <p>"Relevance matters" isn't something an ML engineer can implement. They need to know which signals in their feature set best predict whether a user will experience content as repetitive. So I ran a secondary analysis ranking the predictive strength of each relevance signal.</p>
+    </div>
+
+    <div class="figure-container">
+      <div class="figure-header">
+        <div class="figure-title">Which signals best predict repetition tolerance?</div>
+        <div class="figure-subtitle">Relative effect size from mixed-effects regression model</div>
+      </div>
+      <div class="figure-body">
+        <div id="chart-signals"></div>
+      </div>
+      <div class="figure-footer">
+        <div class="figure-note">Illustrative data. Signal ranking reflects directional findings. Effect sizes are approximate.</div>
+      </div>
+    </div>
+
+    <div class="beat-text">
+      <p>This became the weighting structure for new diversity controls. Instead of suppressing all repeated products, the algorithm would now check whether repeated products matched the user's inferred intent — and only intervene when it didn't.</p>
+    </div>
+  </div>
+
+  <div class="story-beat beat-sage reveal">
+    <div class="beat-label"><span class="num">6</span> WHAT CHANGED</div>
+    <div class="beat-title">From blanket content reduction to relevance-aware diversity controls.</div>
+    <div class="outcome-card">
+      <p>A large A/B test validated the new approach: a GMV lift (the previous attempt had <em>decreased</em> GMV), a measurable drop in repetition complaints, and the lowest complaint rates for high-relevance content. The recommendation algorithm was permanently updated.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════ CASE STUDY 2 ════════ -->
+
+<div class="section-break" id="story-2">
+  <div class="section-break-label">Case Study 02</div>
+</div>
+
+<div class="container">
+<div class="story">
+
+  <div class="story-beat beat-clay reveal">
+    <div class="beat-label"><span class="num">1</span> THE BIG BET</div>
+    <div class="beat-title">The team was about to invest millions in loyalty programs. The logic seemed sound — more purchases should mean more trust, right?</div>
+    <div class="beat-text">
+      <p>US retention on TikTok Shop was significantly lower than other markets. The working theory: users needed more reasons to come back. The roadmap was built around frequency-driven features — loyalty programs, promotions, gamification. Substantial budget was allocated.</p>
+      <p>The implicit assumption behind all of it: as users buy more, their barriers go down. Trust builds. Familiarity grows. The habit forms.</p>
+      <p>I wasn't sure that was true.</p>
+    </div>
+  </div>
+
+  <div class="story-beat beat-clay reveal">
+    <div class="beat-label"><span class="num">2</span> DESIGNING FOR FALSIFICATION</div>
+    <div class="beat-title">Before collecting any data, I discussed the study with the team and designed it to be falsifiable.</div>
+    <div class="beat-text">
+      <p>The frequency-retention hypothesis has a simple testable prediction: barriers should decline as users purchase more. If someone has bought 15+ times, they should trust the platform more than a first-time buyer.</p>
+      <p>I designed the study around this. Before launching anything, I aligned with the team: <em>if barriers decline with purchase frequency, the loyalty strategy is the right call. If they're flat, it's not.</em> By agreeing upfront on what would change their minds, they were ready to act on findings in either direction.</p>
+      <p>The stakes were high enough to warrant a thorough approach — 6,000 survey responses, ~20 depth interviews, and behavioral log analysis. For a decision of this magnitude, I wanted convergent evidence, not a single data point.</p>
+      <div class="method-pills">
+        <span class="method-pill">N = 6,000 survey</span>
+        <span class="method-pill">20 depth interviews</span>
+        <span class="method-pill">behavioral log analysis</span>
+        <span class="method-pill">propensity score matching</span>
+        <span class="method-pill">AI-assisted thematic coding</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-beat beat-clay reveal">
+    <div class="beat-label"><span class="num">3</span> THE FLAT LINE</div>
+    <div class="beat-title">Barriers didn't decline. Not even a little.</div>
+    <div class="beat-text">
+      <p>Across every data source, the same pattern emerged: barriers were flat. Seller trust concerns, product quality issues, customer support frustrations — all virtually identical whether a user had made 1 purchase or 15+.</p>
+      <p>The team expected the first chart. They got the second one.</p>
+    </div>
+
+    <div class="figure-container">
+      <div class="figure-header">
+        <div class="figure-title">What the team expected: barriers decline with purchase frequency</div>
+        <div class="figure-subtitle">% of users mentioning each barrier, by purchase history</div>
+      </div>
+      <div class="figure-body">
+        <div id="chart-expected"></div>
+      </div>
+      <div class="figure-footer">
+        <div class="figure-note">Illustrative data showing the team's hypothesis: barriers would decrease as users purchased more.</div>
+      </div>
+    </div>
+
+    <div class="figure-container">
+      <div class="figure-header">
+        <div class="figure-title">What I actually found: barriers persist regardless of purchase history</div>
+        <div class="figure-subtitle">% of users mentioning each barrier, by purchase frequency segment</div>
+      </div>
+      <div class="figure-body">
+        <div id="chart-actual"></div>
+      </div>
+      <div class="figure-footer">
+        <div class="figure-note">Illustrative data based on directional findings. All three barriers showed no meaningful decline across frequency segments.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-beat beat-clay reveal">
+    <div class="beat-label"><span class="num">4</span> THE WHY</div>
+    <div class="beat-title">"Every purchase is a gamble."</div>
+    <div class="beat-text">
+      <p>The interviews explained the flat line. Users think of TikTok Shop as an impulse and discovery channel — not a shopping destination. They browse for entertainment, stumble on products, and take a chance. Sellers feel random. Quality expectations are low. They buy different things each time, so no seller-specific trust ever accumulates.</p>
+      <p>Each purchase is evaluated independently. There's no compounding trust, no habit forming. It's fundamentally different from platforms like Amazon where reliability is the core value proposition.</p>
+    </div>
+    <div class="insight-quote">
+      <p>You can't drive retention with frequency tactics when the platform's positioning in users' minds prevents trust from building — no matter how many times they buy.</p>
+    </div>
+    <div class="beat-text">
+      <p>41% of churned users were actively purchasing on competitor platforms. They hadn't stopped shopping. They weren't trusting TikTok Shop specifically.</p>
+    </div>
+  </div>
+
+  <div class="story-beat beat-clay reveal">
+    <div class="beat-label"><span class="num">5</span> WHAT CHANGED</div>
+    <div class="beat-title">The entire quarterly roadmap was redirected — in 30 days.</div>
+    <div class="outcome-card">
+      <h4>Before this research</h4>
+      <p>Loyalty programs, promotional campaigns, gamification, re-engagement emails — all designed to drive purchase frequency.</p>
+    </div>
+    <div class="outcome-card" style="background: var(--sage-light);">
+      <h4>After this research</h4>
+      <p>TikTok Shop Protections with trust badges, seller quality vetting overhaul, and customer service infrastructure improvements — all designed to address the fundamental barriers. A Q4 tracking study confirmed the pivot worked: trust and quality metrics improved, and retention improved.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════ PHILOSOPHY ════════ -->
+
+<div class="section-break" id="philosophy">
+  <div class="section-break-label">How I Think About Research</div>
+</div>
+
+<div class="container">
+  <div class="philosophy-section reveal">
+    <div class="beat-title" style="margin-bottom: 1.5rem;">Research should be as rigorous as the decision needs it to be — and no more.</div>
+    <div class="philosophy-text">
+      <p>I don't believe in a one-size-fits-all research process. Some questions need a 6,000-person survey with propensity score matching. Others need five well-chosen interviews and a clear synthesis. The skill isn't knowing how to be maximally rigorous — it's knowing how much rigor <em>this particular decision</em> requires, given the stakes, the constraints, and what's already known.</p>
+      <p>What I do hold constant is intentionality. Every study I run, I need to be able to tell you what methodological tradeoffs I made and why. If I cut a corner, it was a deliberate choice — not an oversight. And if a stakeholder asks "why did you do it this way?", I've already thought about it.</p>
+      <p>I do both foundational and evaluative research. Some of the most valuable work I've done told a team <em>not</em> to build something — which is harder to quantify but just as important as pointing them toward the right thing. I care less about whether research was technically impressive and more about whether it actually changed what got built.</p>
+      <p>The cases above happened to require heavy rigor because the decisions were high-stakes. Plenty of my work doesn't look like that. But the thinking underneath is the same: understand the question, match the method to the stakes, make the tradeoffs explicit, and deliver something the team can act on. Research isn't just about collecting data — it's about using it to inform decisions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ORIGIN ════════ -->
+
+<div class="section-break" id="origin">
+  <div class="section-break-label">Background</div>
+</div>
+
+<div class="container">
+  <div class="origin-section reveal">
+    <div class="beat-title" style="margin-bottom: 1.5rem;">Where I learned to question what looks obvious</div>
+    <div class="origin-text">
+      <p>Before I studied shopping behavior, I studied brains. My PhD at UCLA focused on decoded neuroreinforcement — a method where you decode someone's brain activity in real-time and selectively reinforce specific neural patterns. In practice, this meant I could influence people's preferences without them being consciously aware it was happening.</p>
+      <p>It sounds exotic, but it taught me something practical: people's behavior is driven by processes they often can't articulate. What someone tells you in an interview is real, but it's incomplete. The gap between what people say and what actually drives their behavior is where the most meaningful research questions live.</p>
+      <p>That instinct — to look beneath the surface explanation, to check whether the obvious answer holds up under scrutiny — is what I brought from neuroscience into UX research. It's not that I distrust users. It's that I've learned to take what they say seriously while also designing studies that can reveal what they can't easily tell me.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ METHODS ════════ -->
+
+<div class="section-break" id="methods">
+  <div class="section-break-label">Toolkit</div>
+</div>
+
+<div class="wide-container">
   <div class="reveal">
-    <div class="section-label">Research Philosophy</div>
-    <div class="section-title">How I think about research</div>
-    <div class="philosophy-grid">
-      <div class="philosophy-item">
-        <h3>Disprove first</h3>
-        <p>I design research to falsify hypotheses, not confirm them. Every study starts with explicit criteria for what would change stakeholders' minds. This builds trust — because when findings do hold, the evidence is unimpeachable.</p>
-      </div>
-      <div class="philosophy-item">
-        <h3>Triangulate everything</h3>
-        <p>High-stakes decisions demand convergent evidence. I combine qualitative depth, survey scale, and behavioral data so that no single method's blind spots can mislead a roadmap. If three sources converge, it's signal — not noise.</p>
-      </div>
-      <div class="philosophy-item">
-        <h3>Translate for builders</h3>
-        <p>Research that stays in a slide deck is worthless. I translate user insights into engineering specifications — defining how ML models should weigh signals, what behavioral metrics should replace proxy KPIs, and where systems break human mental models.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- CASE STUDIES -->
-<section id="work">
-  <div class="section-label">Selected Work</div>
-  <div class="section-title">Research that changed product direction</div>
-
-  <!-- CASE 1 -->
-  <div class="case-study reveal">
-    <div class="case-header">
-      <div>
-        <div class="case-number">01</div>
-        <div class="case-title">When Users Say Content Is Repetitive, They Don't Mean What You Think</div>
-        <div class="case-subtitle">Reframing an algorithmic content diversity problem from blanket reduction to relevance-aware controls — by discovering that users tolerate repetition when content matches their intent.</div>
-      </div>
-      <div class="case-meta">
-        <div class="case-meta-row">
-          <span class="case-meta-label">Company</span>
-          <span class="case-meta-value">TikTok Shop</span>
-        </div>
-        <div class="case-meta-row">
-          <span class="case-meta-label">Platform Scale</span>
-          <span class="case-meta-value">10–20M users</span>
-        </div>
-        <div class="case-meta-row">
-          <span class="case-meta-label">My Role</span>
-          <span class="case-meta-value">Lead Researcher (sole UXR)</span>
-        </div>
-        <div class="case-meta-row">
-          <span class="case-meta-label">Collaborators</span>
-          <span class="case-meta-value">ML Engineers, Data Science, Product</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="case-body">
-      <div class="case-body-label">Context</div>
-      <div class="case-body-content">
-        <p>A previous team had attempted to reduce content repetition in TikTok Shop's recommendation feed by implementing blanket diversity filters. The result: GMV dropped. Leadership became risk-averse. The ML team was stuck — they needed to address user complaints about repetitive content, but the only solution they'd tried made the business worse.</p>
-        <p>I was brought in to understand what was actually happening. The question wasn't "how do we show less repeated content?" — it was "what do users actually mean when they say content feels repetitive?"</p>
-      </div>
-
-      <div class="case-body-label">Approach</div>
-      <div class="case-body-content">
-        <p>I designed a multi-method study to separate the signal. The survey reached 5,000 users with a stratified sample across usage frequency segments. Each participant rated three strategically selected videos: one from a category they'd actively searched, one from a category they'd engaged with but never searched, and one from a category they'd never touched. This let me isolate the effect of relevance on perceived repetition.</p>
-        <p>I used a mixed-effects linear regression model with repetition rating (1–7 scale) as the dependent variable, relevance level as the primary independent variable, and user ID as a random effect to account for within-user clustering. Fixed effects included user segment, product category, creator frequency, and video view count.</p>
-        <p>Qualitative interviews and cognitive walkthroughs gave me the "why" beneath the numbers — users defined repetition through attributes (same products, same creators, same aesthetic), not through raw exposure frequency.</p>
-        <div class="method-tags">
-          <span class="method-tag">N = 5,000 survey</span>
-          <span class="method-tag">mixed-effects regression</span>
-          <span class="method-tag">cognitive walkthroughs</span>
-          <span class="method-tag">behavioral log analysis</span>
-          <span class="method-tag">A/B test validation</span>
-          <span class="method-tag">AI-assisted coding</span>
-        </div>
-      </div>
-
-      <div class="case-body-label">Key Insight</div>
-      <div class="case-body-content">
-        <div class="insight-callout">
-          <p>Users tolerate seeing the same content when it matches their intent. High-relevance content rated significantly lower on repetition — even when objectively shown more often. Repetition is a signal of broken relevance, not excessive frequency.</p>
-        </div>
-        <p>This reframed the entire problem. The ML team had been thinking about content diversity as a volume control. My research showed them the real moderator was relevance — and I provided the human-centered definition of "similarity" (based on product attributes, creator identity, and aesthetic category) that their models were missing.</p>
-      </div>
-
-      <div class="case-body-label">Translation to ML</div>
-      <div class="case-body-content">
-        <p>I worked directly with ML engineers to translate the findings into model specifications. Instead of suppressing repeated content uniformly, the algorithm needed to assess whether repeated content matched inferred user intent. I provided the signal hierarchy from my regression: search intent was the strongest predictor of tolerance, followed by engagement history, followed by category affinity. This became the weighting structure for the new relevance-aware diversity controls.</p>
-      </div>
-
-      <div class="case-body-label">Impact</div>
-      <div class="case-body-content">
-        <div class="impact-grid">
-          <div class="impact-card">
-            <div class="number">↑ GMV</div>
-            <div class="label">Low single-digit GMV lift in A/B test with tens of thousands of users</div>
-          </div>
-          <div class="impact-card">
-            <div class="number">↓ Complaints</div>
-            <div class="label">Measurable decrease in repetition complaints — high-relevance content drove lowest rates</div>
-          </div>
-          <div class="impact-card">
-            <div class="number">Algorithm</div>
-            <div class="label">Shifted from blanket content reduction to relevance-aware diversity controls</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CASE 2 -->
-  <div class="case-study reveal">
-    <div class="case-header">
-      <div>
-        <div class="case-number">02</div>
-        <div class="case-title">Why Loyal Customers Still Don't Trust You</div>
-        <div class="case-subtitle">Disproving the frequency-retention hypothesis at TikTok Shop — and redirecting an entire quarterly roadmap from loyalty tactics to fundamental platform trust.</div>
-      </div>
-      <div class="case-meta">
-        <div class="case-meta-row">
-          <span class="case-meta-label">Company</span>
-          <span class="case-meta-value">TikTok Shop</span>
-        </div>
-        <div class="case-meta-row">
-          <span class="case-meta-label">Timeline</span>
-          <span class="case-meta-value">30 days</span>
-        </div>
-        <div class="case-meta-row">
-          <span class="case-meta-label">My Role</span>
-          <span class="case-meta-value">Lead Researcher</span>
-        </div>
-        <div class="case-meta-row">
-          <span class="case-meta-label">Stakeholders</span>
-          <span class="case-meta-value">Product, Data Science, Leadership</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="case-body">
-      <div class="case-body-label">Context</div>
-      <div class="case-body-content">
-        <p>US retention for TikTok Shop was significantly lower than other markets. The team's working hypothesis: users needed more reasons to come back. The planned roadmap was built around frequency-based features — loyalty programs, promotional campaigns, gamification. Multi-million dollar investment was on the table.</p>
-        <p>I questioned the assumption. Multiple factors could explain low retention, and the frequency hypothesis had never been tested. I reframed: are fundamental barriers preventing users from returning, regardless of how many times they've purchased?</p>
-      </div>
-
-      <div class="case-body-label">Approach</div>
-      <div class="case-body-content">
-        <p>Given the stakes — a multi-million dollar roadmap decision — I chose triangulation. Surveys reached 6,000 users. I conducted 20 depth interviews segmented by purchase frequency. Behavioral log analysis from Data Science provided the third leg.</p>
-        <p>I established explicit falsification criteria upfront: if barriers declined monotonically with purchase frequency, the frequency hypothesis held. If barriers were flat, it was wrong. This transparency with stakeholders meant they were ready to act on findings in either direction.</p>
-        <p>For synthesis, I used AI-assisted thematic coding with 100% manual validation and 25% double-coding (inter-rater κ = 0.81). I compared barrier rates across purchase frequency segments and ran a propensity score matching analysis to control for confounding variables.</p>
-        <div class="method-tags">
-          <span class="method-tag">N = 6,000 survey</span>
-          <span class="method-tag">20 depth interviews</span>
-          <span class="method-tag">behavioral log analysis</span>
-          <span class="method-tag">propensity score matching</span>
-          <span class="method-tag">thematic analysis</span>
-          <span class="method-tag">triangulation design</span>
-        </div>
-      </div>
-
-      <div class="case-body-label">Key Insight</div>
-      <div class="case-body-content">
-        <div class="insight-callout">
-          <p>Barriers were flat across all purchase frequencies. Trust (42%), quality (38%), and logistics (45%) concerns were identical whether a user had made 1 purchase or 15. Frequency doesn't build trust — because every purchase on TikTok Shop is an independent gamble, not part of a trust-building relationship.</p>
-        </div>
-        <p>The deeper insight came from understanding why. Interviews revealed that users think of TikTok Shop as an impulse and discovery channel — not a shopping destination. They browse for entertainment, stumble on products, and "take a chance." Sellers feel random. Quality expectations are low. Users buy different things each time, so no seller-specific trust accumulates. Each purchase is evaluated independently.</p>
-        <p>This mental model — "TikTok Shop = impulse gamble, not trusted retailer" — explained everything. You can't drive retention with frequency tactics when the platform's fundamental positioning in users' minds prevents trust from building.</p>
-        <p>41% of churned users were actively purchasing on competitor platforms. They hadn't stopped shopping — they'd stopped trusting TikTok Shop specifically.</p>
-      </div>
-
-      <div class="case-body-label">Impact</div>
-      <div class="case-body-content">
-        <div class="impact-grid">
-          <div class="impact-card">
-            <div class="number">Roadmap</div>
-            <div class="label">Redirected entire quarterly roadmap from loyalty/frequency tactics to trust infrastructure</div>
-          </div>
-          <div class="impact-card">
-            <div class="number">Shipped</div>
-            <div class="label">TikTok Shop Protections, seller quality vetting, customer service overhaul</div>
-          </div>
-          <div class="impact-card">
-            <div class="number">Validated</div>
-            <div class="label">Q4 tracking study confirmed trust metrics improved and retention closed gap with other markets</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- METHODS & SKILLS -->
-<section id="methods">
-  <div class="reveal">
-    <div class="section-label">Toolkit</div>
-    <div class="section-title">Methods & capabilities</div>
-    <div class="methods-columns">
-      <div class="methods-column">
-        <h3>Research Methods</h3>
+    <div class="beat-title" style="margin-bottom: 0.5rem;">Methods & capabilities</div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>Research</h3>
         <ul>
           <li>Causal inference & experimentation</li>
           <li>A/B and multivariate testing</li>
           <li>Behavioral modeling & segmentation</li>
           <li>Survey design at scale</li>
           <li>Depth interviews & cognitive walkthroughs</li>
-          <li>Log analysis & behavioral data</li>
-          <li>Jobs-to-be-Done frameworks</li>
-          <li>Mixed-methods triangulation</li>
+          <li>Behavioral log analysis</li>
+          <li>Mixed-methods research</li>
           <li>AI-assisted research workflows</li>
         </ul>
       </div>
-      <div class="methods-column">
+      <div class="skill-col">
         <h3>Statistical & ML</h3>
         <ul>
           <li>Propensity score matching</li>
@@ -867,66 +607,199 @@
           <li>Python (pandas, statsmodels, scikit-learn)</li>
           <li>R (tidyverse, lavaan)</li>
           <li>SQL</li>
-          <li>MATLAB</li>
-          <li>Multi-voxel pattern analysis</li>
           <li>Reinforcement learning models</li>
         </ul>
       </div>
-      <div class="methods-column">
+      <div class="skill-col">
         <h3>Domains</h3>
         <ul>
           <li>Recommendation systems & search</li>
           <li>E-commerce & marketplace</li>
-          <li>ML model evaluation & optimization</li>
+          <li>ML model evaluation</li>
           <li>User retention & trust</li>
           <li>Digital health & therapeutics</li>
-          <li>Computational psychiatry</li>
-          <li>VR/AR for health</li>
-          <li>Behavioral neuroscience</li>
+          <li>Computational neuroscience</li>
           <li>Content & ad systems</li>
         </ul>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<div class="divider"><hr></div>
+<!-- ════════ CONTACT ════════ -->
 
-<!-- CONTACT -->
-<section id="contact" class="contact-section">
-  <div class="reveal">
-    <div class="section-label">Get in Touch</div>
-    <div class="section-title">Let's talk about your hardest research questions.</div>
-    <p>I'm open to senior UX research roles and strategic consulting engagements.</p>
-    <div class="contact-links">
-      <a href="mailto:mous.cherk@gmail.com" class="contact-link">Email</a>
-      <a href="https://www.linkedin.com/in/mouslim/" class="contact-link">LinkedIn</a>
-      <a href="resume.pdf" class="contact-link">Resume</a>
+<div class="container">
+  <div class="contact-section" id="contact">
+    <div class="reveal">
+      <div class="beat-title">I'd love to hear about what you're working on.</div>
+      <p>I'm open to senior UX research roles and consulting engagements.</p>
+      <div class="contact-row">
+        <a href="mailto:your.email@example.com" class="contact-link">Email</a>
+        <a href="https://linkedin.com/in/mouslimcherkaoui" class="contact-link">LinkedIn</a>
+        <a href="resume.pdf" class="contact-link">Resume</a>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<footer>
-  © 2025 Mouslim Cherkaoui. Built with intention.
-</footer>
+<footer>© 2026 Mouslim Cherkaoui</footer>
 
+<!-- ════════ D3 CHARTS ════════ -->
 <script>
-  // Nav scroll effect
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
+const C = { sage:'#5b7a5e', warm:'#b8885c', clay:'#a65d4e', ink:'#2c2825', border:'#e8e4de' };
+
+function drawRepetitionChart() {
+  const el = d3.select('#chart-repetition');
+  const cw = el.node().getBoundingClientRect().width;
+  const m = { top: 25, right: 30, bottom: 70, left: 65 };
+  const w = cw - m.left - m.right, h = 300 - m.top - m.bottom;
+  const data = [
+    { group: 'Actively Searched', mean: 2.6, se: 0.18 },
+    { group: 'Previously Engaged', mean: 3.9, se: 0.21 },
+    { group: 'Never Engaged', mean: 5.1, se: 0.19 }
+  ];
+  const svg = el.append('svg').attr('viewBox', `0 0 ${cw} 300`)
+    .append('g').attr('transform', `translate(${m.left},${m.top})`);
+  const x = d3.scaleBand().domain(data.map(d=>d.group)).range([0,w]).padding(0.42);
+  const y = d3.scaleLinear().domain([1,7]).range([h,0]);
+
+  svg.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(6).tickSize(-w).tickFormat(''));
+  svg.append('g').attr('class','axis')
+    .call(d3.axisLeft(y).ticks(6));
+  svg.append('text').attr('class','axis-label')
+    .attr('transform','rotate(-90)').attr('y',-50).attr('x',-h/2)
+    .attr('text-anchor','middle').text('Mean Repetitiveness Rating');
+  svg.append('g').attr('class','axis')
+    .attr('transform',`translate(0,${h})`)
+    .call(d3.axisBottom(x).tickSize(0))
+    .selectAll('text').style('font-size','12px').style('fill','#4a4543');
+  svg.append('text').attr('class','axis-label')
+    .attr('x',w/2).attr('y',h+52).attr('text-anchor','middle')
+    .text('Content Relevance Level');
+
+  const cols = [C.sage, C.warm, C.clay];
+  svg.selectAll('.bar').data(data).join('rect')
+    .attr('x',d=>x(d.group)).attr('width',x.bandwidth())
+    .attr('y',d=>y(d.mean)).attr('height',d=>h-y(d.mean))
+    .attr('fill',(d,i)=>cols[i]).attr('rx',2).attr('opacity',0.88);
+
+  // Error bars
+  data.forEach(d => {
+    const cx = x(d.group)+x.bandwidth()/2;
+    svg.append('line').attr('x1',cx).attr('x2',cx)
+      .attr('y1',y(d.mean+d.se)).attr('y2',y(d.mean-d.se))
+      .attr('stroke',C.ink).attr('stroke-width',1.5);
+    [d.mean+d.se,d.mean-d.se].forEach(v => {
+      svg.append('line').attr('x1',cx-6).attr('x2',cx+6)
+        .attr('y1',y(v)).attr('y2',y(v))
+        .attr('stroke',C.ink).attr('stroke-width',1.5);
+    });
+  });
+  svg.selectAll('.lbl').data(data).join('text').attr('class','bar-label')
+    .attr('x',d=>x(d.group)+x.bandwidth()/2).attr('y',d=>y(d.mean)-16)
+    .attr('text-anchor','middle').text(d=>d.mean.toFixed(1));
+}
+
+function drawSignalChart() {
+  const el = d3.select('#chart-signals');
+  const cw = el.node().getBoundingClientRect().width;
+  const m = { top: 15, right: 55, bottom: 25, left: 155 };
+  const w = cw-m.left-m.right, h = 160-m.top-m.bottom;
+  const data = [
+    { signal:'Search Intent', effect:0.72 },
+    { signal:'Engagement History', effect:0.45 },
+    { signal:'Category Affinity', effect:0.28 }
+  ];
+  const svg = el.append('svg').attr('viewBox',`0 0 ${cw} 160`)
+    .append('g').attr('transform',`translate(${m.left},${m.top})`);
+  const x = d3.scaleLinear().domain([0,1]).range([0,w]);
+  const y = d3.scaleBand().domain(data.map(d=>d.signal)).range([0,h]).padding(0.35);
+
+  svg.append('g').attr('class','grid')
+    .call(d3.axisBottom(x).ticks(5).tickSize(h).tickFormat(''));
+  svg.append('g').attr('class','axis')
+    .call(d3.axisLeft(y).tickSize(0))
+    .selectAll('text').style('font-size','12.5px').style('fill','#4a4543');
+  svg.selectAll('.axis path').attr('stroke','none');
+
+  const cols = [C.sage, C.warm, C.clay];
+  svg.selectAll('.bar').data(data).join('rect')
+    .attr('x',0).attr('y',d=>y(d.signal))
+    .attr('width',d=>x(d.effect)).attr('height',y.bandwidth())
+    .attr('fill',(d,i)=>cols[i]).attr('rx',2).attr('opacity',0.88);
+  svg.selectAll('.lbl').data(data).join('text').attr('class','bar-label')
+    .attr('x',d=>x(d.effect)+8).attr('y',d=>y(d.signal)+y.bandwidth()/2+4)
+    .text(d=>d.effect.toFixed(2));
+}
+
+function drawBarrierChart(selector, values, annotationText) {
+  const el = d3.select(selector);
+  const cw = el.node().getBoundingClientRect().width;
+  const m = { top: 28, right: 30, bottom: 78, left: 60 };
+  const w = cw-m.left-m.right, h = 320-m.top-m.bottom;
+  const segments = ['1–2','3–5','6–10','11+'];
+  const barriers = [
+    { name:'Seller Trust', color:C.sage, values:values[0] },
+    { name:'Product Quality', color:C.warm, values:values[1] },
+    { name:'Customer Support', color:C.clay, values:values[2] }
+  ];
+  const svg = el.append('svg').attr('viewBox',`0 0 ${cw} 320`)
+    .append('g').attr('transform',`translate(${m.left},${m.top})`);
+  const x0 = d3.scaleBand().domain(segments).range([0,w]).padding(0.25);
+  const x1 = d3.scaleBand().domain(barriers.map(b=>b.name)).range([0,x0.bandwidth()]).padding(0.08);
+  const y = d3.scaleLinear().domain([0,55]).range([h,0]);
+
+  svg.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(5).tickSize(-w).tickFormat(''));
+  svg.append('g').attr('class','axis')
+    .call(d3.axisLeft(y).ticks(5).tickFormat(d=>d+'%'));
+  svg.append('text').attr('class','axis-label')
+    .attr('transform','rotate(-90)').attr('y',-45).attr('x',-h/2)
+    .attr('text-anchor','middle').text('% of Users Mentioning Barrier');
+  svg.append('g').attr('class','axis')
+    .attr('transform',`translate(0,${h})`)
+    .call(d3.axisBottom(x0).tickSize(0))
+    .selectAll('text').style('font-size','12px');
+  svg.append('text').attr('class','axis-label')
+    .attr('x',w/2).attr('y',h+50).attr('text-anchor','middle')
+    .text('Number of Purchases');
+
+  barriers.forEach(b => {
+    segments.forEach((seg,i) => {
+      svg.append('rect')
+        .attr('x',x0(seg)+x1(b.name)).attr('y',y(b.values[i]))
+        .attr('width',x1.bandwidth()).attr('height',h-y(b.values[i]))
+        .attr('fill',b.color).attr('rx',1.5).attr('opacity',0.82);
+    });
   });
 
-  // Reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+  svg.append('text').attr('class','annotation-text')
+    .attr('x',w/2).attr('y',-8).attr('text-anchor','middle')
+    .text(annotationText);
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const legend = svg.append('g').attr('transform',`translate(0,${h+60})`);
+  barriers.forEach((b,i) => {
+    const lg = legend.append('g').attr('transform',`translate(${i*155},0)`);
+    lg.append('rect').attr('width',10).attr('height',10).attr('fill',b.color).attr('rx',2).attr('opacity',0.82);
+    lg.append('text').attr('class','legend-text').attr('x',15).attr('y',9).text(b.name);
+  });
+}
+
+drawRepetitionChart();
+drawSignalChart();
+drawBarrierChart('#chart-expected',
+  [[48,38,28,18],[42,33,24,16],[38,30,22,14]],
+  '↓ Barriers expected to decline as users buy more');
+drawBarrierChart('#chart-actual',
+  [[44,43,42,43],[39,38,40,38],[46,44,45,45]],
+  '→ Barriers remain flat — frequency doesn\'t build trust');
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
